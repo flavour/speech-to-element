@@ -60,3 +60,26 @@ export function toggleAzure(
     },
   });
 }
+export function toggleTransformers(
+  element: React.RefObject<HTMLElement>,
+  setIsRecording: (state: boolean) => void,
+  setIsPreparing: (state: boolean) => void,
+  setIsError: (state: boolean) => void
+) {
+  setIsError(false);
+  SpeechToElement.toggle('transformers', {
+    element: element.current as HTMLElement,
+    onStart: () => {
+      setIsRecording(true);
+      setIsPreparing(false);
+    },
+    onStop: () => {
+      setIsRecording(false);
+      setIsPreparing(false);
+    },
+    onError: () => {
+      setIsError(true);
+      setIsPreparing(false);
+    },
+  });
+}

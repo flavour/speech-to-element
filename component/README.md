@@ -38,6 +38,41 @@ window.SpeechToElement.toggle('webspeech', {element: targetElement});
 When using Azure, you will also need to install its speech [SDK](https://www.npmjs.com/package/microsoft-cognitiveservices-speech-sdk). Read more in the [Azure SDK](#floppy_disk-azure-sdk) section. <br />
 Make sure to checkout the [examples](https://github.com/OvidijusParsiunas/speech-to-element/tree/main/examples) directory to browse templates for [React](https://github.com/OvidijusParsiunas/speech-to-element/tree/main/examples/ui), [Next.js](https://github.com/OvidijusParsiunas/speech-to-element/tree/main/examples/nextjs) and more.
 
+---
+
+### 🛠️ Local Development: Using the Library as a Local Dependency
+
+To test changes to `speech-to-element` in a local project (such as `examples/ui`) **without publishing to npm**, follow this workflow:
+
+1. **Build and Pack the Library**
+   ```sh
+   cd component
+   npm install           # Only needed once
+   npm run build         # Compiles TypeScript and creates a .tgz tarball
+   ```
+   This produces `speech-to-element-<version>.tgz` in the `component/` directory.
+
+2. **Link the Tarball in Your Example Project**
+   - In `examples/ui/package.json`, set the dependency:
+     ```json
+     "speech-to-element": "file:../component/speech-to-element-<version>.tgz"
+     ```
+   - (This is already set up for you.)
+
+3. **Auto-Install on Build**
+   - The `postpack` script in `component/package.json` will automatically install the new tarball into `examples/ui` after each build.
+
+4. **Run the Example Project**
+   ```sh
+   cd ../examples/ui
+   npm start
+   ```
+   Your example project will use the latest local build of the library.
+
+**Note:**  
+Whenever you bump the version in `component/package.json`, update the dependency path in `examples/ui/package.json` to match the new tarball filename.
+
+---
 ## :construction_worker: Local setup
 
 ```

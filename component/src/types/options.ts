@@ -70,6 +70,16 @@ export interface AzureOptions {
   stopAfterSilenceMs?: number;
 }
 
+export interface TransformersOptions {
+  // https://github.com/huggingface/transformers.js/pull/1219
+  // 'onnx-community/lite-whisper-large-v3-turbo-acc-ONNX'
+  model: string;
+  // device: 'webgpu',
+  // dtype: { encoder_model: 'fp32', decoder_model_merged: 'q4' }, // for GPU
+  // dtype: 'q8', // for CPU
+  pipelineOptions?: Record<string, string>;
+}
+
 export interface WebSpeechOptions {
   // BCP 47 language tag
   // If not specified, this defaults to the HTML lang (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html#lang)

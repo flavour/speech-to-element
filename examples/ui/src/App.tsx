@@ -1,4 +1,4 @@
-import {toggleAzure, toggleWebSpeech} from './utils/toggleSpeech';
+import {toggleAzure, toggleWebSpeech, toggleTransformers} from './utils/toggleSpeech';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import {changeService} from './utils/changeService';
 import Microphone from './components/Microphone';
@@ -24,7 +24,10 @@ function App() {
     // SpeechSDK can be defined in multiple ways, check out the following live code example:
     // https://stackblitz.com/edit/stackblitz-starters-ujkq7j?file=src%2FApp.tsx
     if (!window.SpeechSDK) window.SpeechSDK = sdk;
-    const availableServicesArr: {value: string; text: string}[] = [{value: 'azure', text: 'Azure Speech'}];
+    const availableServicesArr: {value: string; text: string}[] = [
+      {value: 'azure', text: 'Azure Speech'},
+      {value: 'transformers', text: 'Transformers'}
+    ];
     if (SpeechToElement.isWebSpeechSupported()) availableServicesArr.unshift({value: 'webspeech', text: 'Web Speech'});
     setAvailableServices(availableServicesArr);
     if (availableServicesArr.length === 1) setActiveService(availableServicesArr[0].value);
@@ -42,6 +45,8 @@ function App() {
               toggleWebSpeech(textElement, setIsRecording, setIsPreparing, setIsError);
             } else if (activeService === 'azure') {
               toggleAzure(textElement, setIsRecording, setIsPreparing, setIsError);
+            } else if (activeService === 'transformers') {
+              toggleTransformers(textElement, setIsRecording, setIsPreparing, setIsError);
             }
           }}
         >
@@ -81,6 +86,11 @@ function App() {
               example servers
             </a>
             .
+          </div>
+        )}
+        {activeService === 'transformers' && (
+          <div id="transformers-tip">
+            Transformers speech-to-text runs locally in your browser using open-source models.
           </div>
         )}
       </main>
