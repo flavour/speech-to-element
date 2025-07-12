@@ -50,6 +50,6 @@
     "dist/**/*"
   ],
   "dependencies": {
-    "@huggingface/transformers": "^3.6.0"
+    "@huggingface/transformers": "^3.6.3"
   }
 }
